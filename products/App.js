@@ -6,7 +6,12 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scroll} horizontal>
         {'quangdong'.split('').map((item, index) => {
-          return <View key={index} style={styles.items}></View>;
+          const color = Math.floor(Math.random() * 16777215).toString(16);
+          return (
+            <View
+              key={index}
+              style={[styles.items, {backgroundColor: `#${color}`}]}></View>
+          );
         })}
       </ScrollView>
     </SafeAreaView>
