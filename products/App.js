@@ -1,9 +1,10 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <Text>Colors</Text>
       <ScrollView style={styles.scroll} horizontal>
         {'quangdong'.split('').map((item, index) => {
           const color = Math.floor(Math.random() * 16777215).toString(16);

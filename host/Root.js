@@ -33,8 +33,9 @@ ChunkManager.configure({
         url =
           {
             // containers
-            products: 'http://localhost:9000/products.container.bundle',
-            // app2: 'http://localhost:9001/app2.container.bundle',
+            products:
+              'https://storage.googleapis.com/online-dev-public/mobile-dong%2F2022%2FSeptember%2F12%2F%5Ba1b5db63-22f9-4c94-b19e-fcc65da8b53b%5Dproducts.container.bundle',
+            // products: 'http://localhost:9000/products.container.bundle',
             // app3: 'http://localhost:9002/app3.container.bundle',
           }[chunkId] ?? `http://localhost:8081/${chunkId}.chunk.bundle`;
         break;
