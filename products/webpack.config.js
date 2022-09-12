@@ -2,6 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const ReactNative = require('@callstack/repack');
+const {ModuleFederationPlugin} = require('webpack').container;
+
+const STANDALONE = Boolean(process.env.STANDALONE);
 
 /**
  * More documentation, installation, usage, motivation and differences with Metro is available at:
@@ -38,6 +41,7 @@ const entry = ReactNative.getEntry();
 const platform = ReactNative.getPlatform({fallback: process.env.PLATFORM});
 const minimize = ReactNative.isMinimizeEnabled({fallback: !dev});
 const devServer = ReactNative.getDevServerOptions();
+devServer.hmr = STANDALONE ? devServer.hmr : false;
 const reactNativePath = ReactNative.getReactNativePath();
 
 /**
@@ -120,11 +124,6 @@ module.exports = {
          * differently.
          */
         extractComments: false,
-        terserOptions: {
-          format: {
-            comments: false,
-          },
-        },
       }),
     ],
   },
@@ -229,13 +228,11 @@ module.exports = {
      * but in order to for the React Native application to include those files (or a subset of those)
      * they need to be copied over to correct output directories supplied from React Native CLI
      * when bundling the code (with `webpack-bundle` command).
-     * All remote chunks will be placed under `remoteChunksOutput` directory (eg: `<root>/build/<platform>/remote` by default).
      * In development mode (when development server is running), this plugin is a no-op.
      */
     new ReactNative.OutputPlugin({
       platform,
       devServerEnabled: devServer.enabled,
-      remoteChunksOutput: path.join(__dirname, 'build', platform, 'remote'),
     }),
 
     /**
@@ -259,6 +256,7 @@ module.exports = {
       exclude: /\.chunk\.(js)?bundle$/,
       filename: '[file].map',
       append: `//# sourceMappingURL=[url]?platform=${platform}`,
+      moduleFilenameTemplate: 'webpack://products/[resource-path]?[loaders]',
       /**
        * Uncomment for faster builds but less accurate Source Maps
        */
@@ -276,6 +274,7 @@ module.exports = {
       include: /\.chunk\.(js)?bundle$/,
       filename: '[file].map',
       append: `//# sourceMappingURL=[url]?platform=${platform}`,
+      moduleFilenameTemplate: 'webpack://products/[resource-path]?[loaders]',
       /**
        * Uncomment for faster builds but less accurate Source Maps
        */
@@ -297,6 +296,29 @@ module.exports = {
          * Compilation for each platform gets it's own log file.
          */
         // file: path.join(__dirname, `${mode}.${platform}.log`),
+      },
+    }),
+
+    new ModuleFederationPlugin({
+      name: 'products',
+      filename: `products.container.bundle`,
+      library: {
+        name: 'products',
+        type: 'self',
+      },
+      exposes: {
+        './App.js': './App.js',
+      },
+      shared: {
+        react: {
+          singleton: true,
+          eager: STANDALONE, // to be figured out
+        },
+        'react-native': {
+          singleton: true,
+          eager: STANDALONE, // to be figured out
+          requiredVersion: '^0.65.0',
+        },
       },
     }),
   ],
