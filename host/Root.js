@@ -34,8 +34,7 @@ ChunkManager.configure({
           {
             // containers
             products:
-              'https://storage.googleapis.com/online-dev-public/mobile-dong%2F2022%2FSeptember%2F12%2F%5Ba1b5db63-22f9-4c94-b19e-fcc65da8b53b%5Dproducts.container.bundle',
-            // products: 'http://localhost:9000/products.container.bundle',
+              'https://storage.googleapis.com/online-dev-public/mobile-dong%2F2022%2FSeptember%2F13%2F%5Bf1332b78-0d58-4e31-b09f-05664de4041d%5Dandroid.zip',
             // app3: 'http://localhost:9002/app3.container.bundle',
           }[chunkId] ?? `http://localhost:8081/${chunkId}.chunk.bundle`;
         break;
