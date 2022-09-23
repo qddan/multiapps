@@ -15,11 +15,11 @@ ChunkManager.configure({
   resolveRemoteChunk: async (chunkId, parentId) => {
     let url;
 
-    console.log({chunkId, parentId});
+    const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
 
     switch (parentId) {
       case 'products':
-        url = `http://localhost:9000/${chunkId}.chunk.bundle`;
+        url = `${baseUrl}/${chunkId}.chunk.bundle`;
         break;
       // case 'app2':
       //   url = `http://localhost:9001/${chunkId}.chunk.bundle`;
@@ -33,14 +33,13 @@ ChunkManager.configure({
         url =
           {
             // containers
-            products:
-              'https://storage.googleapis.com/online-dev-public/mobile-dong%2F2022%2FSeptember%2F13%2F%5Bf1332b78-0d58-4e31-b09f-05664de4041d%5Dandroid.zip',
+            products: `${baseUrl}/${chunkId}.container.bundle`,
             // app3: 'http://localhost:9002/app3.container.bundle',
-          }[chunkId] ?? `http://localhost:8081/${chunkId}.chunk.bundle`;
+          }[chunkId] ?? `${baseUrl}/${chunkId}.chunk.bundle`;
         break;
     }
 
-    console.log({url});
+    console.log({chunkId, parentId, url});
 
     return {
       url,
