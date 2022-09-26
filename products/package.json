@@ -7,7 +7,10 @@
     "ios": "react-native run-ios",
     "start": "react-native webpack-start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "webpack": "yarn webpack-android && yarn webpack-ios",
+    "webpack-android": "PLATFORM=android npx webpack-cli -c webpack.config.js",
+    "webpack-ios": "PLATFORM=ios npx webpack-cli -c webpack.config.js"
   },
   "dependencies": {
     "react": "^17.0.2",

@@ -98,7 +98,7 @@ const pokemon = {
   ],
 };
 
-export default function App() {
+export default function App({username}) {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -140,6 +140,7 @@ export default function App() {
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={backgroundStyle}>
+        <Text>Hi, {username}</Text>
         <View
           style={{
             flex: 1,

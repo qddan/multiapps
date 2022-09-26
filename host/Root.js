@@ -1,40 +1,28 @@
 import * as React from 'react';
-import {
-  AppRegistry,
-  Text,
-  Platform,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {Text, Platform, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {ChunkManager} from '@callstack/repack/client';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import LoginScreen from './src/LoginScreen';
 
 ChunkManager.configure({
   forceRemoteChunkResolution: true,
   resolveRemoteChunk: async (chunkId, parentId) => {
     let url;
 
-    const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
+    // const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
+    const baseUrl = 'http://localhost:9000';
 
     switch (parentId) {
       case 'products':
         url = `${baseUrl}/${chunkId}.chunk.bundle`;
         break;
-      // case 'app2':
-      //   url = `http://localhost:9001/${chunkId}.chunk.bundle`;
-      //   break;
-      // case 'app3':
-      //   url = `http://localhost:9002/${chunkId}.chunk.bundle`;
-      //   break;
 
       case 'main':
       default:
         url =
           {
-            // containers
             products: `${baseUrl}/${chunkId}.container.bundle`,
-            // app3: 'http://localhost:9002/app3.container.bundle',
           }[chunkId] ?? `${baseUrl}/${chunkId}.chunk.bundle`;
         break;
     }
@@ -68,67 +56,37 @@ async function loadComponent(scope, module) {
 
 const AppProducts = React.lazy(() => loadComponent('products', './App.js'));
 
-// const App2 = React.lazy(() => loadComponent('app2', './App.js'));
+function ProductsWrapper({route}) {
+  const username = route?.params?.username;
 
-// const App3 = React.lazy(() => loadComponent('app3', './App.js'));
+  console.log('ProductsWrapper', {username});
 
-function ProductsWrapper() {
   return (
     <React.Suspense
-      fallback={<Text style={{textAlign: 'center'}}>Loading...</Text>}>
-      <AppProducts />
+      fallback={
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex: 1,
+            backgroundColor: 'white',
+          }}>
+          <Text style={{textAlign: 'center'}}>Loading...</Text>
+        </View>
+      }>
+      <AppProducts username={username} />
     </React.Suspense>
   );
 }
 
-// function App2Wrapper() {
-//   return (
-//     <React.Suspense
-//       fallback={<Text style={{textAlign: 'center'}}>Loading...</Text>}>
-//       <App2 />
-//     </React.Suspense>
-//   );
-// }
-
-// function App3Wrapper() {
-//   return (
-//     <React.Suspense
-//       fallback={<Text style={{textAlign: 'center'}}>Loading 3...</Text>}>
-//       <App3 />
-//     </React.Suspense>
-//   );
-// }
-
 const Stack = createNativeStackNavigator();
-
-function HomeScreen() {
-  const navigation = useNavigation();
-  const gotoProducts = () => {
-    navigation.navigate('Products');
-  };
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'blue',
-          padding: 10,
-          margin: 10,
-          borderRadius: 5,
-        }}
-        onPress={gotoProducts}>
-        <Text style={{color: 'white'}}>Go to Products</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 export function Root() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Products" component={ProductsWrapper} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={ProductsWrapper} />
       </Stack.Navigator>
     </NavigationContainer>
   );
