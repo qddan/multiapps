@@ -148,7 +148,7 @@ function HomeScreen({username}) {
           }}>
           <FlatList
             data={pokemon.results}
-            numColumns={1}
+            numColumns={2}
             renderItem={renderItem}
           />
         </View>
