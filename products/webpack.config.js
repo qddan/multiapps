@@ -319,6 +319,11 @@ module.exports = {
           eager: STANDALONE, // to be figured out
           requiredVersion: '^0.65.0',
         },
+        'react-native-fast-image': {
+          singleton: true,
+          eager: STANDALONE,
+          requiredVersion: '^8.6.1',
+        },
       },
     }),
   ],
