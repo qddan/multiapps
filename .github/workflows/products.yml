@@ -3,7 +3,7 @@ name: deploy-products-app
 on: 
   push:
     branches:
-      - main
+      - refactor/pokemon-list
     paths:
       - 'products/**'
 

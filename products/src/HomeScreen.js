@@ -9,6 +9,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 function HomeScreen({username}) {
   const isDarkMode = useColorScheme() === 'dark';
@@ -48,7 +49,11 @@ function HomeScreen({username}) {
     )}.png`;
     return (
       <View style={styles.item}>
-        <Image source={{uri: imageUrl}} style={{width: 80, height: 80}} />
+        <FastImage
+          style={{width: 80, height: 80}}
+          source={{uri: imageUrl}}
+          resizeMode={FastImage.resizeMode.contain}
+        />
         <Text style={{margin: 10}}>{item.name}</Text>
       </View>
     );
@@ -65,7 +70,7 @@ function HomeScreen({username}) {
           }}>
           <FlatList
             ListHeaderComponent={
-              !!username && <Text style={styles.hiLabel}>Hi, {username}</Text>
+              !!!username && <Text style={styles.hiLabel}>Hi, {username}</Text>
             }
             data={pokemon}
             numColumns={3}
