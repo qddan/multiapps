@@ -149,6 +149,12 @@ module.exports = {
           requiredVersion:
             require('./package.json').dependencies['react-native'],
         },
+        'react-native-fast-image': {
+          singleton: true,
+          eager: true,
+          requiredVersion:
+            require('./package.json').dependencies['react-native-fast-image'],
+        },
       },
     }),
   ],
