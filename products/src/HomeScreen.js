@@ -87,7 +87,7 @@ function HomeScreen({username}) {
           }}>
           <FlatList
             ListHeaderComponent={listHeader}
-            data={[]}
+            data={pokemon}
             numColumns={2}
             onEndReachedThreshold={0.7}
             onEndReached={onloadMore}
