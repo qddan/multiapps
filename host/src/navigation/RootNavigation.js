@@ -5,14 +5,15 @@ import {ChunkManager} from '@callstack/repack/client';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../container/LoginScreen';
 import HomeScreen from '../container/HomeScreen';
+import Loading from '../components/Loading';
 
 ChunkManager.configure({
   forceRemoteChunkResolution: true,
   resolveRemoteChunk: async (chunkId, parentId) => {
     let url;
 
-    const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
-    // const baseUrl = 'http://localhost:9000';
+    // const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
+    const baseUrl = 'http://localhost:9000';
 
     switch (parentId) {
       case 'products':
@@ -60,21 +61,8 @@ const AppProducts = React.lazy(() => loadComponent('products', './App.js'));
 function ProductsWrapper({route}) {
   const username = route?.params?.username;
 
-  console.log('ProductsWrapper', {username});
-
   return (
-    <React.Suspense
-      fallback={
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            flex: 1,
-            backgroundColor: 'white',
-          }}>
-          <Text style={{textAlign: 'center'}}>Loading...</Text>
-        </View>
-      }>
+    <React.Suspense fallback={<Loading />}>
       <AppProducts username={username} />
     </React.Suspense>
   );
@@ -82,14 +70,20 @@ function ProductsWrapper({route}) {
 
 const Stack = createNativeStackNavigator();
 
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="AppProducts" component={ProductsWrapper} />
+    </Stack.Navigator>
+  );
+};
+
 export function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="AppProducts" component={ProductsWrapper} />
-      </Stack.Navigator>
+      <HomeStack />
     </NavigationContainer>
   );
 }
