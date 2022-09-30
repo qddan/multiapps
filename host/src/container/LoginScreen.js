@@ -19,13 +19,13 @@ const LoginScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text>User name</Text>
+      <Text style={styles.label}>User name</Text>
       <TextInput
         value={username}
         onChangeText={onChangeUsername}
         style={styles.input}
       />
-      <Text>Password</Text>
+      <Text style={styles.label}>Password</Text>
       <TextInput style={styles.input} />
       <TouchableOpacity
         style={{
@@ -55,5 +55,11 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 12,
+  },
+  label: {
+    color: 'black',
+    marginTop: 20,
   },
 });

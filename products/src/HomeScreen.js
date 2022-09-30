@@ -59,6 +59,28 @@ function HomeScreen({username}) {
     );
   };
 
+  const listHeader = () => {
+    return (
+      <View>
+        {!!username && <Text style={styles.hiLabel}>Hi, {username}</Text>}
+        <View style={styles.banner}>
+          <View>
+            <Text numberOfLines={2} style={styles.hiLabel}>
+              Pikachu
+            </Text>
+            <Text style={styles.subLabel}>Pika - Pika, Pikachu!</Text>
+          </View>
+          <Image
+            style={styles.bannerImage}
+            source={{
+              uri: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png',
+            }}
+          />
+        </View>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -69,11 +91,9 @@ function HomeScreen({username}) {
             backgroundColor: isDarkMode ? 'black' : 'white',
           }}>
           <FlatList
-            ListHeaderComponent={
-              !!!username && <Text style={styles.hiLabel}>Hi, {username}</Text>
-            }
+            ListHeaderComponent={listHeader}
             data={pokemon}
-            numColumns={3}
+            numColumns={2}
             onEndReachedThreshold={0.7}
             onEndReached={onloadMore}
             renderItem={renderItem}
@@ -104,5 +124,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: 'black',
     backgroundColor: '#EEE',
+  },
+  banner: {
+    backgroundColor: '#F8EC99',
+    height: 200,
+    margin: 10,
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bannerImage: {
+    width: 200,
+    height: 200,
+  },
+  subLabel: {
+    color: 'black',
+    fontSize: 18,
+    fontWeight: '400',
+    marginHorizontal: 20,
   },
 });
