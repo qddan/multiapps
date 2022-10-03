@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import NewModuleButton from './components/NewModuleButton';
 
 function HomeScreen({username}) {
   const isDarkMode = useColorScheme() === 'dark';
@@ -85,21 +86,16 @@ function HomeScreen({username}) {
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={backgroundStyle}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: isDarkMode ? 'black' : 'white',
-          }}>
-          <FlatList
-            ListHeaderComponent={listHeader}
-            data={pokemon}
-            numColumns={2}
-            onEndReachedThreshold={0.7}
-            onEndReached={onloadMore}
-            renderItem={renderItem}
-            keyExtractor={(item, idx) => `${idx}`}
-          />
-        </View>
+        <NewModuleButton />
+        <FlatList
+          ListHeaderComponent={listHeader}
+          data={pokemon}
+          numColumns={2}
+          onEndReachedThreshold={0.7}
+          onEndReached={onloadMore}
+          renderItem={renderItem}
+          keyExtractor={(item, idx) => `${idx}`}
+        />
       </View>
     </SafeAreaView>
   );
