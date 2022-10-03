@@ -312,12 +312,17 @@ module.exports = {
       shared: {
         react: {
           singleton: true,
-          eager: STANDALONE, // to be figured out
+          eager: STANDALONE,
         },
         'react-native': {
           singleton: true,
-          eager: STANDALONE, // to be figured out
-          requiredVersion: '^0.65.0',
+          eager: STANDALONE,
+          requiredVersion: '0.70.0',
+        },
+        'react-native-fast-image': {
+          singleton: true,
+          eager: STANDALONE,
+          requiredVersion: '^8.6.1',
         },
       },
     }),
