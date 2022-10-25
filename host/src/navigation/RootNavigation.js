@@ -6,26 +6,28 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../container/LoginScreen';
 import HomeScreen from '../container/HomeScreen';
 import Loading from '../components/Loading';
+import * as RNFS from 'react-native-fs';
+import {unzip} from 'react-native-zip-archive';
 
 ChunkManager.configure({
   forceRemoteChunkResolution: true,
   resolveRemoteChunk: async (chunkId, parentId) => {
     let url;
 
-    // const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
-    const baseUrl = 'http://localhost:9000';
+    // const remoteUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
+    const remoteUrl = `${RNFS.DocumentDirectoryPath}/products/${Platform.OS}`;
 
     switch (parentId) {
       case 'products':
-        url = `${baseUrl}/${chunkId}.chunk.bundle`;
+        url = `${remoteUrl}/${chunkId}.chunk.bundle`;
         break;
 
       case 'main':
       default:
         url =
           {
-            products: `${baseUrl}/${chunkId}.container.bundle`,
-          }[chunkId] ?? `${baseUrl}/${chunkId}.chunk.bundle`;
+            products: `${remoteUrl}/${chunkId}.container.bundle`,
+          }[chunkId] ?? `${remoteUrl}/${chunkId}.chunk.bundle`;
         break;
     }
 
@@ -40,6 +42,36 @@ ChunkManager.configure({
     };
   },
 });
+
+const downloadZipApp = async appName => {
+  const fileUri = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/${appName}/${Platform.OS}.zip`;
+
+  const pathStorage = `${RNFS.DocumentDirectoryPath}/${appName}/${Platform.OS}`;
+  const sourcePath = `${pathStorage}.zip`;
+  const targetPath = `${pathStorage}/`;
+  const charset = 'UTF-8';
+
+  const downloadOptions = {
+    fromUrl: fileUri,
+    toFile: sourcePath,
+  };
+
+  RNFS.downloadFile(downloadOptions)
+    .promise.then(result => {
+      console.log({result});
+      unzip(sourcePath, targetPath, charset)
+        .then(path => {
+          console.log({path});
+          // return loadComponent('products', './App.js');
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
 
 async function loadComponent(scope, module) {
   // Initializes the share scope. This fills it with known provided modules from this build and all remotes
@@ -81,6 +113,10 @@ const HomeStack = () => {
 };
 
 export function App() {
+  React.useEffect(() => {
+    downloadZipApp('products');
+  }, []);
+
   return (
     <NavigationContainer>
       <HomeStack />
