@@ -3,7 +3,7 @@ name: deploy-products-app
 on: 
   push:
     branches:
-      - refactor/pokemon-list
+      - feature/zip-bundle
     paths:
       - 'products/**'
 
@@ -18,11 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: yarn install
-      - run: yarn webpack
+      - run: yarn webpack-build
 
-      # - uses: shinyinc/action-aws-cli@v1.2
-      # - run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_NAME }}/apps/products
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_DEFAULT_REGION: "ap-southeast-1"
+      - uses: shinyinc/action-aws-cli@v1.2
+      - run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET_NAME }}/apps/products
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "ap-southeast-1"
