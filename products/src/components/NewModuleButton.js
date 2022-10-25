@@ -1,10 +1,13 @@
 import React from 'react';
-import {NativeModules, Button} from 'react-native';
-const {CalendarModule} = NativeModules;
+import {Button} from 'react-native';
+import CalendarModule from './CalendarModule';
 
 const NewModuleButton = () => {
+  // const {DEFAULT_EVENT_NAME} = CalendarModule.getConstants();
+  // console.log(DEFAULT_EVENT_NAME);
+
   const onPress = () => {
-    CalendarModule.createCalendarEvent('testName', 'testLocation');
+    CalendarModule.createCalendarEvent('bar', 'foo', '2022-10-05');
   };
 
   return (

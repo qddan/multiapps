@@ -12,8 +12,8 @@ ChunkManager.configure({
   resolveRemoteChunk: async (chunkId, parentId) => {
     let url;
 
-    // const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
-    const baseUrl = 'http://localhost:9000';
+    const baseUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
+    // const baseUrl = 'http://localhost:9000';
 
     switch (parentId) {
       case 'products':
