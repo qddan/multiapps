@@ -46,9 +46,9 @@ ChunkManager.configure({
 const downloadZipApp = async appName => {
   const fileUri = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/${appName}/${Platform.OS}.zip`;
 
-  const pathStorage = `${RNFS.DocumentDirectoryPath}/${appName}/${Platform.OS}`;
+  const pathStorage = `${RNFS.DocumentDirectoryPath}/${appName}`;
   const sourcePath = `${pathStorage}.zip`;
-  const targetPath = `${pathStorage}/`;
+  const targetPath = `${pathStorage}`;
   const charset = 'UTF-8';
 
   const downloadOptions = {
@@ -58,18 +58,18 @@ const downloadZipApp = async appName => {
 
   RNFS.downloadFile(downloadOptions)
     .promise.then(result => {
-      console.log({result});
+      console.log('download-result', result);
       unzip(sourcePath, targetPath, charset)
         .then(path => {
-          console.log({path});
+          console.log('unzip-path', path);
           // return loadComponent('products', './App.js');
         })
         .catch(error => {
-          console.error(error);
+          console.error('unzip', error);
         });
     })
     .catch(error => {
-      console.log(error);
+      console.log('downloadFile', error);
     });
 };
 
@@ -114,7 +114,7 @@ const HomeStack = () => {
 
 export function App() {
   React.useEffect(() => {
-    downloadZipApp('products');
+    // downloadZipApp('products');
   }, []);
 
   return (
