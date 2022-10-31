@@ -3,14 +3,20 @@ import React from 'react';
 
 const HomeScreen = ({navigation}) => {
   const onPressAppProduct = () => {
-    navigation.navigate('AppProducts');
+    navigation.navigate('MiniApp1');
   };
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <TouchableOpacity onPress={onPressAppProduct} style={styles.moduleButton}>
+        <Text style={styles.text}>Mini App 1</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity onPress={onPressAppProduct} style={styles.moduleButton}>
-        <Text>App Module</Text>
+        <Text style={styles.text}>Mini App 2</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={onPressAppProduct} style={styles.moduleButton}>
+        <Text style={styles.text}>Mini App 3</Text>
       </TouchableOpacity>
     </View>
   );
@@ -28,5 +34,11 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     backgroundColor: 'gray',
+    marginTop: 30,
+  },
+  text: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });

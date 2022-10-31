@@ -43,35 +43,35 @@ import {unzip} from 'react-native-zip-archive';
 //   },
 // });
 
-// const downloadZipApp = async appName => {
-//   const fileUri = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/${appName}/${Platform.OS}.zip`;
+const downloadZipApp = async appName => {
+  const fileUri = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/${appName}/${Platform.OS}.zip`;
 
-//   const pathStorage = `${RNFS.DocumentDirectoryPath}/${appName}`;
-//   const sourcePath = `${pathStorage}.zip`;
-//   const targetPath = `${pathStorage}`;
-//   const charset = 'UTF-8';
+  const pathStorage = `${RNFS.DocumentDirectoryPath}/${appName}`;
+  const sourcePath = `${pathStorage}.zip`;
+  const targetPath = `${pathStorage}`;
+  const charset = 'UTF-8';
 
-//   const downloadOptions = {
-//     fromUrl: fileUri,
-//     toFile: sourcePath,
-//   };
+  const downloadOptions = {
+    fromUrl: fileUri,
+    toFile: sourcePath,
+  };
 
-//   RNFS.downloadFile(downloadOptions)
-//     .promise.then(result => {
-//       console.log('download-result', result);
-//       unzip(sourcePath, targetPath, charset)
-//         .then(path => {
-//           console.log('unzip-path', path);
-//           // return loadComponent('products', './App.js');
-//         })
-//         .catch(error => {
-//           console.error('unzip', error);
-//         });
-//     })
-//     .catch(error => {
-//       console.log('downloadFile', error);
-//     });
-// };
+  RNFS.downloadFile(downloadOptions)
+    .promise.then(result => {
+      console.log('download-result', result);
+      unzip(sourcePath, targetPath, charset)
+        .then(path => {
+          console.log('unzip-path', path);
+          // return loadComponent('products', './App.js');
+        })
+        .catch(error => {
+          console.error('unzip', error);
+        });
+    })
+    .catch(error => {
+      console.log('downloadFile', error);
+    });
+};
 
 // async function loadComponent(scope, module) {
 //   // Initializes the share scope. This fills it with known provided modules from this build and all remotes
@@ -107,16 +107,15 @@ const Stack = createNativeStackNavigator();
 const HomeStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="AppProducts" component={ProductsWrapper} />
+      <Stack.Screen name="SuperApp" component={HomeScreen} />
+      <Stack.Screen name="MiniApp1" component={ProductsWrapper} />
     </Stack.Navigator>
   );
 };
 
 export function App() {
   React.useEffect(() => {
-    // downloadZipApp('products');
+    downloadZipApp('products');
   }, []);
 
   return (
