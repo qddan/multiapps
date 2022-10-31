@@ -9,8 +9,8 @@
     "test": "jest",
     "lint": "eslint .",
     "webpack-build": "yarn webpack-android && yarn zip-android && yarn webpack-ios && yarn zip-ios",
-    "webpack-android": "PLATFORM=android npx webpack-cli -c webpack.config.js",
-    "webpack-ios": "PLATFORM=ios npx webpack-cli -c webpack.config.js",
+    "webpack-android": "PLATFORM=android npx webpack-cli -c webpack.config.mjs",
+    "webpack-ios": "PLATFORM=ios npx webpack-cli -c webpack.config.mjs",
     "zip-android": "cd build && zip -r -X android.zip android && rm -rf android",
     "zip-ios": "cd build && zip -r -X ios.zip ios && rm -rf ios "
   },
