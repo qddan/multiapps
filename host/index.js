@@ -5,7 +5,7 @@ import {name as appName} from './app.json';
 import {Root} from './Root';
 
 // const remoteUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
-const remoteUrl = `${RNFS.DocumentDirectoryPath}/products/${Platform.OS}`;
+// const remoteUrl = `${RNFS.DocumentDirectoryPath}/products/${Platform.OS}`;
 
 const resolveURL = Federated.createURLResolver({
   containers: {

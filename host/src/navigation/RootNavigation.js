@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Text, Platform, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {ChunkManager} from '@callstack/repack/client';
+import {ChunkManager, Federated} from '@callstack/repack/client';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../container/LoginScreen';
 import HomeScreen from '../container/HomeScreen';
