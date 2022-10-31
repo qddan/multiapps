@@ -8,11 +8,11 @@
     "start": "react-native webpack-start",
     "test": "jest",
     "lint": "eslint .",
-    "webpack-build": "yarn webpack-android && yarn webpack-ios",
+    "webpack-build": "yarn webpack-android && yarn webpack-ios && yarn zip-android && yarn zip-ios ",
     "webpack-android": "npx webpack -c webpack.config.mjs --env platform=android --env mode=production",
     "webpack-ios": "npx webpack -c webpack.config.mjs --env platform=ios --env mode=production",
-    "zip-android": "cd build && zip -r -X android.zip android && rm -rf android",
-    "zip-ios": "cd build && zip -r -X ios.zip ios && rm -rf ios "
+    "zip-android": "cd build/outputs && zip -r -X android.zip android && rm -rf android",
+    "zip-ios": "cd build/outputs && zip -r -X ios.zip ios && rm -rf ios"
   },
   "dependencies": {
     "react": "18.1.0",
