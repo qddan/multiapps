@@ -4,12 +4,13 @@ import {ScriptManager, Script, Federated} from '@callstack/repack/client';
 import {name as appName} from './app.json';
 import {Root} from './Root';
 
-// const remoteUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}`;
-// const remoteUrl = `${RNFS.DocumentDirectoryPath}/products/${Platform.OS}`;
+const remoteUrl = `https://super-fast.s3.ap-southeast-1.amazonaws.com/apps/products/${Platform.OS}/remotes`;
+// const remoteUrl = 'http://localhost:9000/';
+// const remoteUrl = `${RNFS.DocumentDirectoryPath}/products/${Platform.OS}/`;
 
 const resolveURL = Federated.createURLResolver({
   containers: {
-    products: 'http://localhost:9000/[name][ext]',
+    products: `${remoteUrl}[name][ext]`,
   },
 });
 

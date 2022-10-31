@@ -2,7 +2,7 @@ import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 import * as Repack from '@callstack/repack';
 
-const STANDALONE = Boolean(process.env.STANDALONE);
+// const STANDALONE = Boolean(process.env.STANDALONE);
 
 /**
  * More documentation, installation, usage, motivation and differences with Metro is available at:
@@ -246,8 +246,7 @@ export default env => {
           'react-native-fast-image': {
             singleton: true,
             eager: true,
-            requiredVersion:
-              require('./package.json').dependencies['react-native-fast-image'],
+            requiredVersion: '^8.6.1',
           },
         },
       }),

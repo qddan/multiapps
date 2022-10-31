@@ -107,7 +107,7 @@ export default env => {
      */
     output: {
       clean: true,
-      path: path.join(dirname, 'build/generated', platform),
+      path: path.join(dirname, 'build', platform),
       filename: 'index.bundle',
       chunkFilename: '[name].chunk.bundle',
       publicPath: Repack.getPublicPath({platform, devServer}),
@@ -234,22 +234,20 @@ export default env => {
       new Repack.plugins.ModuleFederationPlugin({
         name: 'products',
         exposes: {
-          './App': './src/App.js', //
+          './App': './src/App.js',
         },
         shared: {
           react: {
             ...Repack.Federated.SHARED_REACT,
-            eager: STANDALONE, // to be figured out
             requiredVersion: '^18.1.0',
           },
           'react-native': {
             ...Repack.Federated.SHARED_REACT_NATIVE,
-            eager: STANDALONE, // to be figured out
             requiredVersion: '^0.70.0',
           },
           'react-native-fast-image': {
             singleton: true,
-            eager: STANDALONE,
+            eager: true,
             requiredVersion: '^8.6.1',
           },
         },
