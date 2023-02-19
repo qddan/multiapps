@@ -86,7 +86,7 @@ function HomeScreen({username}) {
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={backgroundStyle}>
-        <NewModuleButton />
+        {/* <NewModuleButton /> */}
         <FlatList
           ListHeaderComponent={listHeader}
           data={pokemon}
