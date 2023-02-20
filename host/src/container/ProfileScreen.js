@@ -3,8 +3,8 @@ import React from 'react';
 
 const ProfileScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>ProfileScreen</Text>
+    <View style={styles.wrapper}>
+      <Text style={styles.text}>ProfileScreen module in App Host</Text>
     </View>
   );
 };
@@ -12,10 +12,13 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
+  wrapper: {
     justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  text: {
+    fontSize: 20,
+    color: 'orange',
   },
 });

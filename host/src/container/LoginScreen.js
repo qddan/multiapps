@@ -27,15 +27,8 @@ const LoginScreen = ({navigation}) => {
       />
       <Text style={styles.label}>Password</Text>
       <TextInput style={styles.input} />
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'blue',
-          padding: 10,
-          margin: 20,
-          borderRadius: 5,
-        }}
-        onPress={onLogin}>
-        <Text style={{color: 'white', textAlign: 'center'}}>Login</Text>
+      <TouchableOpacity style={styles.btnLogin} onPress={onLogin}>
+        <Text style={styles.txtLogin}>Login</Text>
       </TouchableOpacity>
     </View>
   );
@@ -61,5 +54,15 @@ const styles = StyleSheet.create({
   label: {
     color: 'black',
     marginTop: 20,
+  },
+  btnLogin: {
+    backgroundColor: 'blue',
+    padding: 10,
+    margin: 20,
+    borderRadius: 5,
+  },
+  txtLogin: {
+    color: 'white',
+    textAlign: 'center',
   },
 });

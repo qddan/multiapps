@@ -234,6 +234,9 @@ export default env => {
       }),
       new Repack.plugins.ModuleFederationPlugin({
         name: 'host',
+        exposes: {
+          './Profile': './src/container/ProfileScreen.js',
+        },
         shared: {
           react: {
             ...Repack.Federated.SHARED_REACT,

@@ -15,6 +15,7 @@
     "zip-ios": "cd build/outputs && zip -r -X ios.zip ios && rm -rf ios"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.4",
     "react": "18.1.0",
     "react-native": "0.70.0",
     "react-native-fast-image": "^8.6.1"

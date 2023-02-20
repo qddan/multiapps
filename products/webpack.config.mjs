@@ -235,6 +235,8 @@ export default env => {
         name: 'products',
         exposes: {
           './App': './src/App.js',
+          './Home': './src/HomeScreen.js',
+          './Button': './src/components/Button.js',
         },
         shared: {
           react: {

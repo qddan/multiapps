@@ -8,6 +8,7 @@ import HomeScreen from '../container/HomeScreen';
 import Loading from '../components/Loading';
 import * as RNFS from 'react-native-fs';
 import {unzip} from 'react-native-zip-archive';
+import ProfileScreen from '../container/ProfileScreen';
 
 // ChunkManager.configure({
 //   forceRemoteChunkResolution: true,
@@ -88,12 +89,12 @@ import {unzip} from 'react-native-zip-archive';
 //   return exports;
 // }
 
-const AppProducts = React.lazy(() =>
-  Federated.importModule('products', './App'),
-);
-
 function ProductsWrapper({route}) {
   const username = route?.params?.username;
+
+  const AppProducts = React.lazy(() =>
+    Federated.importModule('products', './App'),
+  );
 
   return (
     <React.Suspense fallback={<Loading />}>
@@ -101,6 +102,17 @@ function ProductsWrapper({route}) {
     </React.Suspense>
   );
 }
+
+const ProfileModule = () => {
+  const ProfileModuleImport = React.lazy(() =>
+    Federated.importModule('host', './Profile'),
+  );
+  return (
+    <React.Suspense fallback={<Loading />}>
+      <ProfileModuleImport />
+    </React.Suspense>
+  );
+};
 
 const Stack = createNativeStackNavigator();
 
@@ -110,6 +122,7 @@ const HomeStack = () => {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="AppProducts" component={ProductsWrapper} />
+      <Stack.Screen name="ProfileModule" component={ProfileModule} />
     </Stack.Navigator>
   );
 };

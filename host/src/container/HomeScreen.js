@@ -1,16 +1,25 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+// import {Button} from '../components/Button';
 
 const HomeScreen = ({navigation}) => {
   const onPressAppProduct = () => {
     navigation.navigate('AppProducts');
+  };
+
+  const onPressProfile = () => {
+    navigation.navigate('ProfileModule');
   };
   return (
     <View style={styles.container}>
       <Text>HomeScreen</Text>
 
       <TouchableOpacity onPress={onPressAppProduct} style={styles.moduleButton}>
-        <Text>App Module</Text>
+        <Text style={styles.text}>App Module</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={onPressProfile} style={styles.moduleButton}>
+        <Text style={styles.text}>Profile Module</Text>
       </TouchableOpacity>
     </View>
   );
@@ -27,6 +36,11 @@ const styles = StyleSheet.create({
   moduleButton: {
     padding: 20,
     borderRadius: 10,
-    backgroundColor: 'gray',
+    backgroundColor: 'orange',
+    margin: 5,
+  },
+  text: {
+    fontSize: 18,
+    color: 'white',
   },
 });

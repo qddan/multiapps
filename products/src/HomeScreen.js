@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Button from './components/Button';
 import NewModuleButton from './components/NewModuleButton';
 
 function HomeScreen({username}) {
@@ -87,6 +88,7 @@ function HomeScreen({username}) {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <View style={backgroundStyle}>
         {/* <NewModuleButton /> */}
+        <Button label={'Custom button'} />
         <FlatList
           ListHeaderComponent={listHeader}
           data={pokemon}
